@@ -1,30 +1,36 @@
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.FluentWait;
+import java.util.function.Function;
 import org.testng.annotations.Test;
 import java.time.Duration;
 
+
+
 public class webStart {
 
-
+    public WebDriver driver = new ChromeDriver();
     @Test
     void Setup (){
         //ref for chromedriver: https://googlechromelabs.github.io/chrome-for-testing/
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
         System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/src/test/resources/chromedriver.exe");
-        WebDriver driver = new ChromeDriver();
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+//        FluentWait<WebDriver> wait = new FluentWait<>(driver)
+//                .withTimeout(Duration.ofSeconds(10))
+//                .pollingEvery(Duration.ofSeconds(1))
+//                .ignoring(NoSuchElementException.class);
         driver.get("https://trytestingthis.netlify.app");
+        //WebElement Main = driver.findElement(By.id("main"));
+    }
 
-
-        WebElement Main = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("main")));
+    void inputField (){
         WebElement sda; // Find the element
-        sda = Main.findElement(By.id("fname"));
+        sda = driver.findElement(By.id("fname"));
         sda.sendKeys("Mark"); // Send keys to the element
-        Main.findElement(By.id("fname")).sendKeys("Test1");
+        driver.findElement(By.id("fname")).sendKeys("Test1");
     }
 
 //    @Test
